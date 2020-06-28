@@ -1,0 +1,40 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /api
+
+spring:
+  jackson:
+    # 返回json数据时屏蔽null数据
+    default-property-inclusion: non_null
+  datasource:
+    username: root
+    password: 456456asd
+    url: jdbc:mysql://localhost:3306/yangtuo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  # 配置mapper存放位置
+  mapper-locations: classpath:mapper/*.xml
+  # 配置别名
+  type-aliases-package: me.neoyang.yangtuoserver.bean
+  # 打印SQL
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    lazy-loading-enabled: true
+    #false 为按需加载
+    aggressive-lazy-loading: false
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: false #pageSize=0
+
+#showSql
+logging:
+  level:
+    me:
+      neoyang:
+        yangtuoserver:
+          dao: DEBUG

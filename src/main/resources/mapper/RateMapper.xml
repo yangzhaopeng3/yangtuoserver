@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.neoyang.yangtuoserver.dao.RateDao">
+
+    <resultMap id="rateMap" type="me.neoyang.yangtuoserver.bean.Rate">
+        <id column="cid" property="cid"></id>
+        <result column="movie_id" property="movieId"></result>
+        <result column="comment" property="comment"></result>
+        <result column="rating" property="rating"></result>
+        <result column="rate_time" property="rateTime"></result>
+        <association property="user" column="user_id"
+                     select="me.neoyang.yangtuoserver.dao.UserDao.getNickname"
+                     javaType="User"></association>
+    </resultMap>
+
+    <select id="getAllRates" resultMap="rateMap">
+        select * from rating
+    </select>
+
+    <select id="getRateByMovieId" resultMap="rateMap" parameterType="Integer">
+        select * from rating where movie_id = #{movie_id}
+    </select>
+
+</mapper>

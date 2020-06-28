@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.neoyang.yangtuoserver.dao.MovieDao">
+
+    <resultMap id="movieMap" type="me.neoyang.yangtuoserver.bean.Movie">
+        <id column="mid" property="mid"></id>
+        <result column="movie_id" property="movieId"></result>
+        <result column="movie_title" property="movieTitle"></result>
+        <result column="title_other" property="titleOther"></result>
+        <result column="director" property="director"></result>
+        <result column="cast" property="cast"></result>
+        <result column="country" property="country"></result>
+        <result column="genre" property="genre"></result>
+        <result column="language" property="language"></result>
+        <result column="duration" property="duration"></result>
+        <result column="description" property="description"></result>
+        <result column="release_date" property="releaseDate"></result>
+        <result column="tag" property="tag"></result>
+        <result column="poster" property="poster"></result>
+        <result column="rating" property="rating"></result>
+        <result column="douban_url" property="doubanUrl"></result>
+    </resultMap>
+
+    <resultMap id="movieListMap" type="me.neoyang.yangtuoserver.bean.Movie">
+        <id column="mid" property="mid"></id>
+        <result column="movie_id" property="movieId"></result>
+        <result column="movie_title" property="movieTitle"></result>
+        <result column="genre" property="genre"></result>
+        <result column="rating" property="rating"></result>
+        <result column="poster" property="poster"></result>
+        <result column="director" property="director"></result>
+        <result column="cast" property="cast"></result>
+    </resultMap>
+
+
+    <select id="getMovieList" resultMap="movieListMap">
+        select movie_id,movie_title,genre,rating,poster,director,cast from movie
+    </select>
+
+    <select id="getMovieById" resultMap="movieMap" parameterType="Integer">
+        select * from movie where movie_id = #{movieId}
+    </select>
+
+</mapper>
