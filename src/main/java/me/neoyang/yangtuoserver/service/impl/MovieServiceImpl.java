@@ -1,12 +1,15 @@
 package me.neoyang.yangtuoserver.service.impl;
 
-import me.neoyang.yangtuoserver.dao.MovieDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import me.neoyang.yangtuoserver.bean.Movie;
+import me.neoyang.yangtuoserver.bean.RespBean;
+import me.neoyang.yangtuoserver.dao.MovieDao;
+import me.neoyang.yangtuoserver.exception.MyException;
 import me.neoyang.yangtuoserver.service.MovieService;
+import me.neoyang.yangtuoserver.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @name: MovieServiceImpl
@@ -22,12 +25,21 @@ public class MovieServiceImpl implements MovieService {
     private MovieDao movieDao;
 
     @Override
-    public Movie getMovieById(Integer movieId) {
-        return movieDao.getMovieById(movieId);
+    public RespBean getMovieById(Integer movieId) throws MyException {
+        Movie movie = movieDao.getMovieById(movieId);
+        if (movie == null) {
+            throw new MyException("找不到资源");
+        }
+        return ResultUtil.success("查询成功", movie);
     }
 
     @Override
-    public List<Movie> getMovies() {
-        return movieDao.getMovieList();
+    public RespBean getMovies(Integer pageNum, Integer pageSize) throws MyException {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo(movieDao.getMovieList());
+        if (pageInfo.getTotal() == 0) {
+            throw new MyException("找不到资源");
+        }
+        return ResultUtil.success("查询成功", pageInfo);
     }
 }

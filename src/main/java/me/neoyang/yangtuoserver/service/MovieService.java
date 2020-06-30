@@ -1,8 +1,7 @@
 package me.neoyang.yangtuoserver.service;
 
-import me.neoyang.yangtuoserver.bean.Movie;
-
-import java.util.List;
+import me.neoyang.yangtuoserver.bean.RespBean;
+import me.neoyang.yangtuoserver.exception.MyException;
 
 /**
  * @name: MovieService
@@ -20,8 +19,8 @@ public interface MovieService {
      * @author: Zhaopeng Yang
      * @date: 2020/6/22
      */
-    public List<Movie> getMovies();
+    RespBean getMovies(Integer pageNum, Integer pageSize);
 
-    public Movie getMovieById(Integer movieId);
+    RespBean getMovieById(Integer movieId) throws MyException;
 }
 

@@ -21,4 +21,8 @@
         select * from rating where movie_id = #{movie_id}
     </select>
 
+    <insert id="insertRate" parameterType="Rate" useGeneratedKeys="true" keyProperty="cid">
+        insert into rating(movie_id,user_id,comment,rating,rate_time)
+        values(#{movieId},#{user.userId},#{comment},#{rating},#{rateTime})
+    </insert>
 </mapper>

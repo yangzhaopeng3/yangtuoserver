@@ -2,9 +2,7 @@ package me.neoyang.yangtuoserver.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.smartcardio.CommandAPDU;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @name: User
@@ -18,8 +16,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String nickname;
-    private String email;
-    private List<Rate> ratings;
+    private String role;
 
     public User() {
     }
@@ -31,9 +28,16 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", email='" + email + '\'' +
-                ", ratings=" + ratings +
+                ", role='" + role +
                 '}';
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Integer getUserId() {
@@ -66,21 +70,5 @@ public class User implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Rate> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rate> ratings) {
-        this.ratings = ratings;
     }
 }

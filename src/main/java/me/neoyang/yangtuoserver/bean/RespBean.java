@@ -1,29 +1,31 @@
 package me.neoyang.yangtuoserver.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
-/**
- * @name: RespBean
- * @desc: 通用响应对象
- * @author: Zhaopeng Yang
- * @create: 2020-06-22 22:16
- **/
+@JsonIgnoreProperties(value = {"handler"})
 public class RespBean implements Serializable {
-    //响应码 0 -success 1 - failure
-    private Integer statusCode;
-    //响应消息
-    private String msg;
-    //数据
-    private Object data;
 
-    public RespBean(){}
+    private Integer code;   //返回码 非0即失败
+    private String msg; //消息提示
+    private Object data; //返回的数据
 
-    public Integer getStatusCode() {
-        return statusCode;
+    public RespBean() {
     }
 
-    public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
+    public RespBean(int code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public String getMsg() {
@@ -41,4 +43,6 @@ public class RespBean implements Serializable {
     public void setData(Object data) {
         this.data = data;
     }
+
+
 }

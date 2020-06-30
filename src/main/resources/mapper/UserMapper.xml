@@ -7,16 +7,25 @@
         <result column="username" property="username"></result>
         <result column="password" property="password"></result>
         <result column="nickname" property="nickname"></result>
-        <result column="email" property="email"></result>
     </resultMap>
-
-    <select id="findUserByUserId" resultMap="userMap" parameterType="Integer">
-        select * from user where user_id = #{userId};
-    </select>
 
     <select id="getNickname" resultMap="userMap" parameterType="Integer">
         select user_id,nickname from user where user_id = #{userId};
     </select>
 
+    <insert id="insertUser" parameterType="User" keyProperty="userId" useGeneratedKeys="true">
+        insert into user(username,password,nickname) values(#{username},#{password},#{nickname})
+    </insert>
 
+    <select id="findByUsername" resultMap="userMap" parameterType="String">
+        select * from user where username = #{username};
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="userMap" parameterType="Integer">
+        select * from user where user_id = #{userId};
+    </select>
+
+    <select id="getUserByUsernameAndPassword" resultMap="userMap" parameterType="User">
+        select * from user where username = #{username} and password = #{password};
+    </select>
 </mapper>

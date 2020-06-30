@@ -32,7 +32,6 @@
         <result column="cast" property="cast"></result>
     </resultMap>
 
-
     <select id="getMovieList" resultMap="movieListMap">
         select movie_id,movie_title,genre,rating,poster,director,cast from movie
     </select>

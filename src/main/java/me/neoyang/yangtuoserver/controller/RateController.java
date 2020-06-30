@@ -1,18 +1,11 @@
 package me.neoyang.yangtuoserver.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import me.neoyang.yangtuoserver.bean.Movie;
+import me.neoyang.yangtuoserver.bean.CheckToken;
 import me.neoyang.yangtuoserver.bean.Rate;
-import me.neoyang.yangtuoserver.service.MovieService;
+import me.neoyang.yangtuoserver.bean.RespBean;
 import me.neoyang.yangtuoserver.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @name: MovieController
@@ -26,14 +19,19 @@ public class RateController {
     @Autowired
     private RateService rateService;
 
+    @CheckToken
+    @PostMapping("/rate")
+    public RespBean makeRate(Rate rate) throws Exception {
+        return rateService.makeRate(rate);
+    }
 
+    @CheckToken
     @GetMapping("/rate/{movieId}")
-    public PageInfo getRate(@PathVariable("movieId") Integer movieId,
-                            @RequestParam(value = "start", defaultValue = "1") int pageNum,
-                            @RequestParam(value = "limit", defaultValue = "10") int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        PageInfo pageInfo = new PageInfo(rateService.getRateByMid(movieId));
-        return pageInfo;
+    public RespBean getRate(@PathVariable("movieId") Integer movieId,
+                            @RequestParam(value = "start", defaultValue = "1") Integer pageNum,
+                            @RequestParam(value = "limit", defaultValue = "10") Integer pageSize)
+            throws Exception {
+        return rateService.getRateByMid(movieId, pageNum, pageSize);
     }
 
 }

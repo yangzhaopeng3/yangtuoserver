@@ -1,10 +1,10 @@
 package me.neoyang.yangtuoserver.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @name: Rate
@@ -18,18 +18,18 @@ public class Rate implements Serializable {
     private Integer movieId;
     private String comment;
     private Double rating;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date rateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate rateTime;
     private User user;
 
     public Rate() {
     }
 
-    public Date getRateTime() {
+    public LocalDate getRateTime() {
         return rateTime;
     }
 
-    public void setRateTime(Date rateTime) {
+    public void setRateTime(LocalDate rateTime) {
         this.rateTime = rateTime;
     }
 

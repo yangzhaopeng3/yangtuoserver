@@ -1,6 +1,7 @@
 package me.neoyang.yangtuoserver.dao;
 
 import me.neoyang.yangtuoserver.bean.Movie;
+import me.neoyang.yangtuoserver.exception.MyException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface MovieDao {
      * @author: Zhaopeng Yang
      * @date: 2020/6/22
      */
-    public List<Movie> getMovieList();
+    List<Movie> getMovieList();
 
     /**
      * @name: getMovieById
@@ -32,5 +33,5 @@ public interface MovieDao {
      * @author: Zhaopeng Yang
      * @date: 2020/6/27
      */
-    public Movie getMovieById(Integer movieId);
+    Movie getMovieById(Integer movieId) throws MyException;
 }

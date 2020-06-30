@@ -1,6 +1,7 @@
 package me.neoyang.yangtuoserver.dao;
 
 import me.neoyang.yangtuoserver.bean.Rate;
+import me.neoyang.yangtuoserver.exception.MyException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.List;
 @Repository
 public interface RateDao {
 
-    public List<Rate> getAllRates();
+    List<Rate> getAllRates() throws MyException;
 
-    public List<Rate> getRateByMovieId(Integer movieId);
+    List<Rate> getRateByMovieId(Integer movieId) throws MyException;
+
+    Integer insertRate(Rate rate) throws MyException;
 }
