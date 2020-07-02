@@ -1,6 +1,7 @@
 package me.neoyang.yangtuoserver.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
@@ -14,9 +15,9 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Integer userId;
     private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String nickname;
-    private String role;
 
     public User() {
     }
@@ -27,18 +28,9 @@ public class User implements Serializable {
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", role='" + role +
-                '}';
+                ", nickname='" + nickname + '}';
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public Integer getUserId() {
         return userId;

@@ -30,8 +30,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     private UserDao userDao;
 
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
-        System.out.println("======MYINTER===" + userDao);
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws MyException {
         // 从 http 请求头中取出 token
         String token = httpServletRequest.getHeader("token");
         // 如果不是映射到方法直接通过

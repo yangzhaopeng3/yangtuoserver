@@ -21,6 +21,20 @@
         select * from rating where movie_id = #{movie_id}
     </select>
 
+    <select id="selectByMovieIdAndUserId" resultMap="rateMap">
+        select * from rating where movie_id = #{movieId} and user_id = #{userId}
+    </select>
+
+    <delete id="delete" parameterType="integer">
+        delete from rating where cid = #{cid}
+    </delete>
+
+    <update id="update" parameterType="Rate">
+        update rating set comment = #{comment},rating = #{rating},rate_time = #{rateTime}
+        where cid = #{cid}
+    </update>
+
+
     <insert id="insertRate" parameterType="Rate" useGeneratedKeys="true" keyProperty="cid">
         insert into rating(movie_id,user_id,comment,rating,rate_time)
         values(#{movieId},#{user.userId},#{comment},#{rating},#{rateTime})

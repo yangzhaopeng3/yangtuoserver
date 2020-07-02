@@ -21,11 +21,30 @@ public class RateController {
 
     @CheckToken
     @PostMapping("/rate")
-    public RespBean makeRate(Rate rate) throws Exception {
+    public RespBean makeRate(@RequestBody Rate rate) throws Exception {
         return rateService.makeRate(rate);
     }
 
+    @GetMapping("/rate/{movieId}/my/{userId}")
+    public RespBean getMyRate(@PathVariable("movieId") Integer movieId,
+                              @PathVariable("userId") Integer userId) throws Exception {
+        return rateService.getARateOfUser(movieId, userId);
+    }
+
+
     @CheckToken
+    @DeleteMapping("/rate/{cid}")
+    public RespBean deleteRate(@PathVariable("cid") Integer cid) {
+        return rateService.deleteRate(cid);
+    }
+
+    @CheckToken
+    @PutMapping("/rate")
+    public RespBean updateRate(@RequestBody Rate rate) {
+        return rateService.updateRate(rate);
+    }
+
+
     @GetMapping("/rate/{movieId}")
     public RespBean getRate(@PathVariable("movieId") Integer movieId,
                             @RequestParam(value = "start", defaultValue = "1") Integer pageNum,

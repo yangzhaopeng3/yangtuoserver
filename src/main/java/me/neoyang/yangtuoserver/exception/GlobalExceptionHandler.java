@@ -30,9 +30,16 @@ public class GlobalExceptionHandler {
     private static final String logExceptionFormat = "Capture Exception By GlobalExceptionHandler: Code: %s Detail: %s";
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    //自定义错误
+    @ExceptionHandler({MyException.class})
+    public RespBean exception(MyException ex) {
+        return ResultUtil.error(ex.getCode(), ex.getMessage());
+    }
+
     //处理404 500异常
     @ExceptionHandler
     public RespBean defaultErrorHandler(HttpServletRequest req, Exception e) {
+        e.printStackTrace();
         if (e instanceof org.springframework.web.servlet.NoHandlerFoundException) {
             return ResultUtil.error(404, "找不到资源路径！");
         } else {
@@ -41,7 +48,8 @@ public class GlobalExceptionHandler {
     }
 
     //运行时异常
-    @ExceptionHandler({RuntimeException.class,
+    @ExceptionHandler({
+            RuntimeException.class,
             HttpMessageNotReadableException.class,
             ConversionNotSupportedException.class,
             HttpMessageNotWritableException.class,
@@ -98,10 +106,5 @@ public class GlobalExceptionHandler {
     }
 */
 
-    //自定义错误
-    @ExceptionHandler({MyException.class})
-    public RespBean exception(MyException ex) {
-        return ResultUtil.error(ex.getCode(), ex.getMessage());
-    }
 
 }

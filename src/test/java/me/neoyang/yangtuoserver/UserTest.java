@@ -27,7 +27,6 @@ public class UserTest {
     public void testUser1() {
         User user = new User();
         user.setNickname("nPEO");
-        user.setRole("ROLE_USER");
         user.setPassword("12341");
         user.setUsername("123413413124");
         System.out.println(user);

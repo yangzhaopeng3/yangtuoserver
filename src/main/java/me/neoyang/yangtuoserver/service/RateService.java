@@ -18,4 +18,10 @@ public interface RateService {
     RespBean getRateByMid(Integer movieId, Integer pageNum, Integer pageSize) throws Exception;
 
     RespBean makeRate(Rate rate) throws Exception;
+
+    RespBean getARateOfUser(Integer movieId, Integer userId);
+
+    RespBean deleteRate(Integer cid);
+
+    RespBean updateRate(Rate rate);
 }

@@ -20,4 +20,15 @@ public interface RateDao {
     List<Rate> getRateByMovieId(Integer movieId) throws MyException;
 
     Integer insertRate(Rate rate) throws MyException;
+
+    Rate selectByMovieIdAndUserId(Integer movieId, Integer userId);
+
+    Integer update(Rate rate);
+
+    Integer delete(Integer cid);
+
 }
+
+
+
+
