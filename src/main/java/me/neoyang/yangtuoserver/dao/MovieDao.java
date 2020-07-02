@@ -25,6 +25,8 @@ public interface MovieDao {
      */
     List<Movie> getMovieList();
 
+    List<Movie> getMovieListOrderByRate();
+
     /**
      * @name: getMovieById
      * @desc: 通过MovieId获取电影详情信息
@@ -34,4 +36,9 @@ public interface MovieDao {
      * @date: 2020/6/27
      */
     Movie getMovieById(Integer movieId) throws MyException;
+
+
+    List<Movie> getWishList(Integer userId);
+
+    List<Movie> getWatchedList(Integer userId);
 }

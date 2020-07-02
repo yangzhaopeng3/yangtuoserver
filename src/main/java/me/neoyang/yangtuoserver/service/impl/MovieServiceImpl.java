@@ -25,6 +25,36 @@ public class MovieServiceImpl implements MovieService {
     private MovieDao movieDao;
 
     @Override
+    public RespBean getMoviesOrderByRate(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo(movieDao.getMovieListOrderByRate());
+        if (pageInfo.getTotal() == 0) {
+            throw new MyException("找不到资源");
+        }
+        return ResultUtil.success("查询成功", pageInfo);
+    }
+
+    @Override
+    public RespBean getWatchedList(Integer userId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo(movieDao.getWatchedList(userId));
+        if (pageInfo.getTotal() == 0) {
+            throw new MyException("您还没看过任何电影");
+        }
+        return ResultUtil.success("查询成功", pageInfo);
+    }
+
+    @Override
+    public RespBean getWishList(Integer userId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo(movieDao.getWishList(userId));
+        if (pageInfo.getTotal() == 0) {
+            throw new MyException("您还没想看过任何电影");
+        }
+        return ResultUtil.success("查询成功", pageInfo);
+    }
+
+    @Override
     public RespBean getMovieById(Integer movieId) throws MyException {
         Movie movie = movieDao.getMovieById(movieId);
         if (movie == null) {

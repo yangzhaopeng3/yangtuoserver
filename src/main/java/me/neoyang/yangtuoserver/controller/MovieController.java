@@ -1,5 +1,6 @@
 package me.neoyang.yangtuoserver.controller;
 
+import me.neoyang.yangtuoserver.bean.CheckToken;
 import me.neoyang.yangtuoserver.bean.RespBean;
 import me.neoyang.yangtuoserver.exception.MyException;
 import me.neoyang.yangtuoserver.service.MovieService;
@@ -21,6 +22,25 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+
+    @CheckToken
+    @GetMapping("/people/{userId}/wish")
+    public RespBean getWishList(@PathVariable("userId") Integer userId,
+                                @RequestParam(value = "start", defaultValue = "1") Integer pageNum,
+                                @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+        return movieService.getWishList(userId, pageNum, pageSize);
+    }
+
+
+    @GetMapping("/people/{userId}/collect")
+    @CheckToken
+    public RespBean getWatchedList(@PathVariable("userId") Integer userId,
+                                   @RequestParam(value = "start", defaultValue = "1") Integer pageNum,
+                                   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+        return movieService.getWatchedList(userId, pageNum, pageSize);
+    }
+
+
     /**
      * @name: getMovies
      * @desc: 返回所有电影数据
@@ -36,6 +56,21 @@ public class MovieController {
     }
 
     /**
+     * @name: getMovies
+     * @desc: 返回所有电影数据oder by rate desc
+     * @param: []
+     * @return: java.util.List<me.neoyang.yangtuoserver.bean.Movie>
+     * @author: Zhaopeng Yang
+     * @date: 2020/6/28
+     */
+    @GetMapping("/movies/chart")
+    public RespBean getMovieChart(@RequestParam(value = "start", defaultValue = "1") int pageNum,
+                                  @RequestParam(value = "limit", defaultValue = "10") int pageSize) throws MyException {
+        return movieService.getMoviesOrderByRate(pageNum, pageSize);
+    }
+
+
+    /**
      * @name: getMovie
      * @desc: 返回特定电影数据
      * @param: [movieId]
@@ -47,5 +82,6 @@ public class MovieController {
     public RespBean getMovie(@PathVariable("movieId") Integer movieId) throws MyException {
         return movieService.getMovieById(movieId);
     }
+
 
 }

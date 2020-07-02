@@ -53,4 +53,5 @@ public class RateController {
         return rateService.getRateByMid(movieId, pageNum, pageSize);
     }
 
+
 }

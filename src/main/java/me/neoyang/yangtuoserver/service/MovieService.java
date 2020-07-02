@@ -22,5 +22,11 @@ public interface MovieService {
     RespBean getMovies(Integer pageNum, Integer pageSize);
 
     RespBean getMovieById(Integer movieId) throws MyException;
+
+    RespBean getWatchedList(Integer userId, Integer pageNum, Integer pageSize);
+
+    RespBean getWishList(Integer userId, Integer pageNum, Integer pageSize);
+
+    RespBean getMoviesOrderByRate(int pageNum, int pageSize);
 }
 

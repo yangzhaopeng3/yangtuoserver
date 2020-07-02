@@ -36,8 +36,23 @@
         select movie_id,movie_title,genre,rating,poster,director,cast from movie
     </select>
 
+    <select id="getMovieListOrderByRate" resultMap="movieMap">
+        select * from movie order by rating desc
+    </select>
+
     <select id="getMovieById" resultMap="movieMap" parameterType="Integer">
         select * from movie where movie_id = #{movieId}
+    </select>
+
+    <select id="getWishList" resultMap="movieMap" parameterType="Integer">
+        SELECT * FROM movie where movie.movie_id in(
+        SELECT wish.movie_id FROM wish where wish.user_id = #{userId})
+    </select>
+
+
+    <select id="getWatchedList" resultMap="movieMap" parameterType="Integer">
+        SELECT * FROM movie where movie.movie_id in(
+SELECT rating.movie_id FROM rating where rating.user_id = #{userId})
     </select>
 
 </mapper>
