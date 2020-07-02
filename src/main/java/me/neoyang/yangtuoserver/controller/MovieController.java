@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 /**
  * @name: MovieController
  * @desc: Movie的控制器
@@ -65,10 +67,24 @@ public class MovieController {
      */
     @GetMapping("/movies/chart")
     public RespBean getMovieChart(@RequestParam(value = "start", defaultValue = "1") int pageNum,
-                                  @RequestParam(value = "limit", defaultValue = "10") int pageSize) throws MyException {
+                                  @RequestParam(value = "limit", defaultValue = "12") int pageSize) throws MyException {
         return movieService.getMoviesOrderByRate(pageNum, pageSize);
     }
 
+
+    @GetMapping("movies/tag")
+    public RespBean getMoviesByTag(@RequestParam HashMap map) {
+        System.out.println(map);
+        return movieService.getMoviebyTag(map);
+    }
+
+
+    @GetMapping("movies/search/{content}")
+    public RespBean search(@PathVariable("content") String content,
+                           @RequestParam(value = "start", defaultValue = "1") int pageNum,
+                           @RequestParam(value = "limit", defaultValue = "12") int pageSize) {
+        return movieService.search(content, pageNum, pageSize);
+    }
 
     /**
      * @name: getMovie

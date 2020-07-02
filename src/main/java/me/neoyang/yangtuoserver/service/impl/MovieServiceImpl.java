@@ -11,6 +11,8 @@ import me.neoyang.yangtuoserver.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 /**
  * @name: MovieServiceImpl
  * @desc:
@@ -25,9 +27,29 @@ public class MovieServiceImpl implements MovieService {
     private MovieDao movieDao;
 
     @Override
+    public RespBean getMoviebyTag(HashMap map) {
+        PageHelper.startPage(Integer.valueOf((String) map.get("start")), Integer.valueOf((String) map.get("limit")));
+        PageInfo pageInfo = new PageInfo(movieDao.selectByTag(map));
+        if (pageInfo.getTotal() == 0) {
+            throw new MyException("找不到资源");
+        }
+        return ResultUtil.success("查询成功", pageInfo);
+    }
+
+    @Override
     public RespBean getMoviesOrderByRate(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo pageInfo = new PageInfo(movieDao.getMovieListOrderByRate());
+        if (pageInfo.getTotal() == 0) {
+            throw new MyException("找不到资源");
+        }
+        return ResultUtil.success("查询成功", pageInfo);
+    }
+
+    @Override
+    public RespBean search(String content, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo(movieDao.search(content));
         if (pageInfo.getTotal() == 0) {
             throw new MyException("找不到资源");
         }

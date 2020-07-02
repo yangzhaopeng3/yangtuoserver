@@ -36,6 +36,32 @@
         select movie_id,movie_title,genre,rating,poster,director,cast from movie
     </select>
 
+    <select id="search" resultMap="movieMap" parameterType="String">
+        select * from movie where
+        movie_title like CONCAT('%',#{content},'%')
+        or cast like CONCAT('%',#{content},'%')
+        or director like CONCAT('%',#{content},'%')
+    </select>
+
+    <select id="selectByTag" resultMap="movieMap" parameterType="java.util.HashMap">
+        select * from movie
+        <where>
+            1 = 1
+            <if test="type != null and type != ''">
+                and tag like CONCAT('%',#{type},'%')
+            </if>
+            <if test="region != null and region != ''">
+                and tag like CONCAT('%',#{region},'%')
+            </if>
+            <if test="year != null and year != ''">
+                and tag like CONCAT('%',#{year},'%')
+            </if>
+            <if test="sepecial != null and sepecial != ''">
+                and tag like CONCAT('%',#{sepecial},'%')
+            </if>
+        </where>
+    </select>
+
     <select id="getMovieListOrderByRate" resultMap="movieMap">
         select * from movie order by rating desc
     </select>

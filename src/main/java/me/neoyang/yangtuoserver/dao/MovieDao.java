@@ -4,6 +4,7 @@ import me.neoyang.yangtuoserver.bean.Movie;
 import me.neoyang.yangtuoserver.exception.MyException;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,10 +36,17 @@ public interface MovieDao {
      * @author: Zhaopeng Yang
      * @date: 2020/6/27
      */
+
+
+    List<Movie> search(String content);
+
+
     Movie getMovieById(Integer movieId) throws MyException;
 
 
     List<Movie> getWishList(Integer userId);
 
     List<Movie> getWatchedList(Integer userId);
+
+    List<Movie> selectByTag(HashMap tag);
 }
