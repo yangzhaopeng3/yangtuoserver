@@ -32,6 +32,16 @@
         <result column="cast" property="cast"></result>
     </resultMap>
 
+    <select id="findRecommends" resultMap="movieMap" parameterType="list">
+        select * from movie
+        <where>
+            movie_id in
+            <foreach collection="list" separator="," item="item" open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
     <select id="getMovieList" resultMap="movieListMap">
         select movie_id,movie_title,genre,rating,poster,director,cast from movie
     </select>
@@ -75,10 +85,20 @@
         SELECT wish.movie_id FROM wish where wish.user_id = #{userId})
     </select>
 
+    <select id="getMoviesRecommend" resultMap="movieMap" parameterType="integer">
+        SELECT * FROM movie WHERE movie_id in(
+            SELECT movie_id_recommend FROM rec
+                WHERE movie_id = #{movieId}
+            )
+    </select>
 
     <select id="getWatchedList" resultMap="movieMap" parameterType="Integer">
         SELECT * FROM movie where movie.movie_id in(
 SELECT rating.movie_id FROM rating where rating.user_id = #{userId})
     </select>
+
+    <insert id="rec">
+        insert into recommend(movie_id,user_id) values(#{movieId},#{userId})
+    </insert>
 
 </mapper>

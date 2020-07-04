@@ -37,6 +37,11 @@ public interface MovieDao {
      * @date: 2020/6/27
      */
 
+    List<Movie> getMoviesRecommend(Integer movieId);
+
+    Integer rec(Integer movieId, Integer userId);
+
+    List<Movie> findRecommends(List list);
 
     List<Movie> search(String content);
 

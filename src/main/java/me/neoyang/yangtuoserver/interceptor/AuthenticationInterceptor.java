@@ -1,4 +1,4 @@
-package me.neoyang.yangtuoserver.config;
+package me.neoyang.yangtuoserver.interceptor;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;

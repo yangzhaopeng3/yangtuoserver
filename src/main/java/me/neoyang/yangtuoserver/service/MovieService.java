@@ -34,5 +34,7 @@ public interface MovieService {
     RespBean getMoviebyTag(HashMap map);
 
     RespBean search(String content, Integer pageNum, Integer pageSize);
+
+    RespBean getMovieRecommend(Integer movieId);
 }
 

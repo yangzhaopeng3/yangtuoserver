@@ -99,5 +99,10 @@ public class MovieController {
         return movieService.getMovieById(movieId);
     }
 
+    @GetMapping("/movie/rec/{movieId}")
+    public RespBean getMovieRecommend(@PathVariable("movieId") Integer movieId) {
+        return movieService.getMovieRecommend(movieId);
+    }
+
 
 }
