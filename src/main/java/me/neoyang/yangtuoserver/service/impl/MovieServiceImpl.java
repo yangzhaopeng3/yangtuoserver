@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @name: MovieServiceImpl
@@ -94,15 +93,5 @@ public class MovieServiceImpl implements MovieService {
             throw new MyException("找不到资源");
         }
         return ResultUtil.success("查询成功", pageInfo);
-    }
-
-    @Override
-    public RespBean getMovieRecommend(Integer movieId) {
-        List<Movie> moviesRecommend = movieDao.getMoviesRecommend(movieId);
-        if (moviesRecommend == null || moviesRecommend.size() == 0) {
-            throw new MyException("暂无推荐！");
-        } else {
-            return ResultUtil.success(moviesRecommend);
-        }
     }
 }

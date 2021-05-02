@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @name: MovieController
  * @desc: Movie的控制器
  * @author: Zhaopeng Yang
- * @create: 2020-06-22 22:03
+ * @create: 2021/04/21
  **/
 @RestController
 public class MovieController {
@@ -44,12 +44,25 @@ public class MovieController {
 
 
     /**
+     * @name: getMovie
+     * @desc: 返回特定电影数据
+     * @param: [movieId]
+     * @return: me.neoyang.yangtuoserver.bean.Movie
+     * @author: Zhaopeng Yang
+     * @date: 2021/04/21
+     */
+    @GetMapping("/movie/{movieId}")
+    public RespBean getMovie(@PathVariable("movieId") Integer movieId) throws MyException {
+        return movieService.getMovieById(movieId);
+    }
+
+    /**
      * @name: getMovies
      * @desc: 返回所有电影数据
      * @param: []
      * @return: java.util.List<me.neoyang.yangtuoserver.bean.Movie>
      * @author: Zhaopeng Yang
-     * @date: 2020/6/28
+     * @date: 2021/04/21
      */
     @GetMapping("/movies")
     public RespBean getMovies(@RequestParam(value = "start", defaultValue = "1") int pageNum,
@@ -85,24 +98,4 @@ public class MovieController {
                            @RequestParam(value = "limit", defaultValue = "12") int pageSize) {
         return movieService.search(content, pageNum, pageSize);
     }
-
-    /**
-     * @name: getMovie
-     * @desc: 返回特定电影数据
-     * @param: [movieId]
-     * @return: me.neoyang.yangtuoserver.bean.Movie
-     * @author: Zhaopeng Yang
-     * @date: 2020/6/28
-     */
-    @GetMapping("/movie/{movieId}")
-    public RespBean getMovie(@PathVariable("movieId") Integer movieId) throws MyException {
-        return movieService.getMovieById(movieId);
-    }
-
-    @GetMapping("/movie/rec/{movieId}")
-    public RespBean getMovieRecommend(@PathVariable("movieId") Integer movieId) {
-        return movieService.getMovieRecommend(movieId);
-    }
-
-
 }

@@ -1,6 +1,5 @@
 package me.neoyang.yangtuoserver.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -12,8 +11,8 @@ import java.io.Serializable;
  * @create: 2020-06-22 17:39
  **/
 @JsonIgnoreProperties(value = {"handler"})
-public class Movie implements Serializable {
-    @JsonIgnore
+public class Movie implements Serializable, Comparable<Movie> {
+
     private Integer mid;
     private Integer movieId;
     private String movieTitle;
@@ -33,6 +32,11 @@ public class Movie implements Serializable {
 
 
     public Movie() {
+    }
+
+    @Override
+    public int compareTo(Movie movie) {
+        return this.releaseDate.compareTo(movie.getReleaseDate());
     }
 
     public Integer getMid() {

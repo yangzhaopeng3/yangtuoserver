@@ -1,12 +1,13 @@
 package me.neoyang.yangtuoserver.controller;
 
-import me.neoyang.yangtuoserver.bean.CheckToken;
 import me.neoyang.yangtuoserver.bean.RespBean;
 import me.neoyang.yangtuoserver.bean.User;
-import me.neoyang.yangtuoserver.service.RecommendService;
 import me.neoyang.yangtuoserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,27 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UserController {
-
-    @Autowired
-    private RecommendService recommendService;
-
-    /*@Autowired
-    private UserBasedRecommender userBasedRecommender;*/
-
-    @CheckToken
-    @GetMapping("/suggest/{userId}")
-    public RespBean recommendeByItem(@PathVariable("userId") Integer userId) {
-        System.out.println("再推荐中！!");
-        return recommendService.recommendByUserBased(userId, 12);
-    }
-
-    /*@GetMapping("/test")
-    public RespBean serveRec() {
-        System.out.println("处理中！!");
-        return recommendService.recommendByItemBased(1, 12);
-    }*/
-
-
     @Autowired
     private UserService userService;
 

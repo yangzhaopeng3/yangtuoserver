@@ -29,28 +29,29 @@
         <result column="rating" property="rating"></result>
         <result column="poster" property="poster"></result>
         <result column="director" property="director"></result>
+        <result column="release_date" property="releaseDate"></result>
         <result column="cast" property="cast"></result>
     </resultMap>
 
-    <select id="findRecommends" resultMap="movieMap" parameterType="list">
-        select * from movie
-        <where>
-            movie_id in
-            <foreach collection="list" separator="," item="item" open="(" close=")" index="">
-                #{item}
-            </foreach>
-        </where>
-    </select>
-
     <select id="getMovieList" resultMap="movieListMap">
-        select movie_id,movie_title,genre,rating,poster,director,cast from movie
+        select movie_id,
+               movie_title,
+               genre,
+               rating,
+               poster,
+               director,
+               cast,
+               release_date
+        from movie
+        ORDER BY release_date DESC
     </select>
 
     <select id="search" resultMap="movieMap" parameterType="String">
-        select * from movie where
-        movie_title like CONCAT('%',#{content},'%')
-        or cast like CONCAT('%',#{content},'%')
-        or director like CONCAT('%',#{content},'%')
+        select *
+        from movie
+        where movie_title like CONCAT('%', #{content}, '%')
+           or cast like CONCAT('%', #{content}, '%')
+           or director like CONCAT('%', #{content}, '%')
     </select>
 
     <select id="selectByTag" resultMap="movieMap" parameterType="java.util.HashMap">
@@ -66,39 +67,39 @@
             <if test="year != null and year != ''">
                 and tag like CONCAT('%',#{year},'%')
             </if>
-            <if test="sepecial != null and sepecial != ''">
-                and tag like CONCAT('%',#{sepecial},'%')
+            <if test="special != null and special != ''">
+                and tag like CONCAT('%',#{special},'%')
             </if>
         </where>
     </select>
 
     <select id="getMovieListOrderByRate" resultMap="movieMap">
-        select * from movie order by rating desc
+        select *
+        from movie
+        order by rating desc
     </select>
 
     <select id="getMovieById" resultMap="movieMap" parameterType="Integer">
-        select * from movie where movie_id = #{movieId}
+        select *
+        from movie
+        where movie_id = #{movieId}
     </select>
 
     <select id="getWishList" resultMap="movieMap" parameterType="Integer">
-        SELECT * FROM movie where movie.movie_id in(
-        SELECT wish.movie_id FROM wish where wish.user_id = #{userId})
-    </select>
-
-    <select id="getMoviesRecommend" resultMap="movieMap" parameterType="integer">
-        SELECT * FROM movie WHERE movie_id in(
-            SELECT movie_id_recommend FROM rec
-                WHERE movie_id = #{movieId}
-            )
+        SELECT *
+        FROM movie
+        where movie.movie_id in (
+            SELECT wish.movie_id
+            FROM wish
+            where wish.user_id = #{userId})
     </select>
 
     <select id="getWatchedList" resultMap="movieMap" parameterType="Integer">
-        SELECT * FROM movie where movie.movie_id in(
-SELECT rating.movie_id FROM rating where rating.user_id = #{userId})
+        SELECT *
+        FROM movie
+        where movie.movie_id in (
+            SELECT rating.movie_id
+            FROM rating
+            where rating.user_id = #{userId})
     </select>
-
-    <insert id="rec">
-        insert into recommend(movie_id,user_id) values(#{movieId},#{userId})
-    </insert>
-
 </mapper>

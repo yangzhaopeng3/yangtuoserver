@@ -2,6 +2,7 @@ package me.neoyang.yangtuoserver;
 
 import me.neoyang.yangtuoserver.bean.User;
 import me.neoyang.yangtuoserver.dao.UserDao;
+import me.neoyang.yangtuoserver.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,19 @@ public class UserTest {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserService userService;
+
     @Test
     public void testUser1() {
-        User user = new User();
-        user.setNickname("nPEO");
-        user.setPassword("12341");
-        user.setUsername("123413413124");
-        System.out.println(user);
-        Integer integer = userDao.insertUser(user);
-        System.out.println(integer);
-        System.out.println(user);
+        for (int i = 1; i <= 610; i++) {
+            User user = new User();
+            user.setNickname("测试用户" + i);
+            user.setUsername("testuser" + i);
+            user.setPassword("test123");
+            user.setUserId(i);
+            userService.register(user);
+        }
     }
 
     @Test

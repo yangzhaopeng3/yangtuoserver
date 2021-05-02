@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.neoyang.yangtuoserver.dao.RecDao">
+
+    <resultMap id="movieMap1" type="me.neoyang.yangtuoserver.bean.Movie">
+        <id column="mid" property="mid"></id>
+        <result column="movie_id" property="movieId"></result>
+        <result column="movie_title" property="movieTitle"></result>
+        <result column="title_other" property="titleOther"></result>
+        <result column="director" property="director"></result>
+        <result column="cast" property="cast"></result>
+        <result column="country" property="country"></result>
+        <result column="genre" property="genre"></result>
+        <result column="language" property="language"></result>
+        <result column="duration" property="duration"></result>
+        <result column="description" property="description"></result>
+        <result column="release_date" property="releaseDate"></result>
+        <result column="tag" property="tag"></result>
+        <result column="poster" property="poster"></result>
+        <result column="rating" property="rating"></result>
+        <result column="douban_url" property="doubanUrl"></result>
+    </resultMap>
+
+    <resultMap id="movieListMap1" type="me.neoyang.yangtuoserver.bean.Movie">
+        <id column="mid" property="mid"></id>
+        <result column="movie_id" property="movieId"></result>
+        <result column="movie_title" property="movieTitle"></result>
+        <result column="genre" property="genre"></result>
+        <result column="rating" property="rating"></result>
+        <result column="poster" property="poster"></result>
+        <result column="director" property="director"></result>
+        <result column="cast" property="cast"></result>
+    </resultMap>
+
+    <select id="recMovie2Movie" resultMap="movieMap1" parameterType="Integer">
+        SELECT *
+        FROM movie
+        where movie_id in
+              (
+                  SELECT rec_movie_id
+                  FROM movie_rec
+                  where movie_id = #{movieId}
+              )
+    </select>
+
+    <select id="recMovie2User" resultMap="movieMap1" parameterType="Integer">
+        SELECT *
+        FROM movie
+        where movie_id in (SELECT rec_movie_id FROM user_rec where user_id = #{userId})
+    </select>
+
+</mapper>

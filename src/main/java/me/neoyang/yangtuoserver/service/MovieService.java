@@ -13,14 +13,6 @@ import java.util.HashMap;
  **/
 
 public interface MovieService {
-    /**
-     * @name: getMovies
-     * @desc: 获取电影列表
-     * @param: []
-     * @return: java.util.List<me.neoyang.yangtuoserver.domain.Movie>
-     * @author: Zhaopeng Yang
-     * @date: 2020/6/22
-     */
     RespBean getMovies(Integer pageNum, Integer pageSize);
 
     RespBean getMovieById(Integer movieId) throws MyException;
@@ -34,7 +26,5 @@ public interface MovieService {
     RespBean getMoviebyTag(HashMap map);
 
     RespBean search(String content, Integer pageNum, Integer pageSize);
-
-    RespBean getMovieRecommend(Integer movieId);
 }
 
